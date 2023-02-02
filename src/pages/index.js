@@ -1,11 +1,15 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import { Inter } from '@next/font/google'
-import styles from '@/styles/Home.module.css'
+import Head from "next/head";
+import Image from "next/image";
+import { Inter } from "@next/font/google";
+import styles from "@/styles/Home.module.css";
+import { useSession } from "next-auth/react";
+import InputField from "@/components/input/InputField";
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
+  const { data: session } = useSession();
+  // console.log(session);
   return (
     <>
       <Head>
@@ -14,6 +18,7 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
       <main className={styles.main}>
         <div className={styles.description}>
           <p>
@@ -26,7 +31,7 @@ export default function Home() {
               target="_blank"
               rel="noopener noreferrer"
             >
-              By{' '}
+              By
               <Image
                 src="/vercel.svg"
                 alt="Vercel Logo"
@@ -38,6 +43,16 @@ export default function Home() {
             </a>
           </div>
         </div>
+
+        <div className="flex justify-center flex-wrap">
+          <h1 className="text-[3rem] flex justify-center flex-wrap ">
+            Welcome {session ? `${session.user.name}` : ""} To,
+          </h1>
+        </div>
+
+        {/* <div>
+          <InputField />
+        </div> */}
 
         <div className={styles.center}>
           <Image
@@ -119,5 +134,6 @@ export default function Home() {
         </div>
       </main>
     </>
-  )
+  );
 }
+
